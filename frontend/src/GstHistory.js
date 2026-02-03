@@ -1,1 +1,0 @@
-// GstHistory React component

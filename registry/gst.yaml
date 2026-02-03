@@ -1,0 +1,136 @@
+version: 1
+domain: gst
+
+intents:
+
+  calculate_gst:
+    description: Calculate GST on a given amount with a specified rate
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant, user]
+    schema:
+      amount: number
+      gst_rate: number
+    policy:
+      admin: AUTO
+      accountant: AUTO
+      user: AUTO
+
+
+  check_gstin_status:
+    description: Check whether a GSTIN is valid
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant, user]
+    schema:
+      gstin: string
+    policy:
+      admin: AUTO
+      user: AUTO
+
+  calculate_late_fee:
+    description: Calculate GST late fee for delayed payment
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant]
+    schema:
+      tax_amount: number
+      delay_days: number
+    policy:
+      admin: AUTO
+      accountant: AUTO
+
+  generate_gst_report:
+    description: Generate GST report for a specific period
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant]
+    schema:
+      from_date: string
+      to_date: string
+    policy:
+      admin: AUTO
+      accountant: AUTO
+
+  file_gst_return:
+    description: File GST return for a given month
+    mcp: gst_mcp
+    approval_required: true
+    allowed_roles: [admin, accountant]
+    schema:
+      month: string
+      year: number
+    policy:
+      admin: AUTO
+      accountant: AUTO
+
+  reconcile_gst_payment:
+    description: Reconcile GST payments against invoices
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant]
+    schema:
+      invoice_ids: list
+      gstin: string
+    policy:
+      admin: AUTO
+      accountant: AUTO
+
+  generate_e_way_bill:
+    description: Generate e-way bill for transportation of goods
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant, user]
+    schema:
+      gstin: string
+      invoice_id: string
+      transport_mode: string
+    policy:
+      admin: AUTO
+      accountant: AUTO
+      user: AUTO
+
+  validate_invoice:
+    description: Validate GST invoice details
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant]
+    schema:
+      invoice_id: string
+      gstin: string
+    policy:
+      admin: AUTO
+      accountant: AUTO
+
+  track_gst_payment:
+    description: Track GST payment status
+    mcp: gst_mcp
+    approval_required: false
+    allowed_roles: [admin, accountant, user]
+    schema:
+      gstin: string
+      period: string
+    policy:
+      admin: AUTO
+      accountant: AUTO
+      user: AUTO
+
+  cancel_gst_return:
+    description: Cancel a filed GST return
+    mcp: gst_mcp
+    approval_required: true
+    allowed_roles: [admin, accountant]
+    schema:
+      return_id: string
+      reason: string
+    policy:
+      admin: AUTO
+      accountant: AUTO
+
+  unknown:
+    description: Unknown or unsupported intent
+    mcp: null
+    approval_required: false
+    allowed_roles: [ai_agent, accountant, admin]
+    schema: {}
+    policy: reject
